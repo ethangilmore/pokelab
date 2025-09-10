@@ -1,6 +1,6 @@
 import type { DamageCalcResult } from "@/types/DamageCalc";
 import type { StatName } from "@/types/Stats";
-import { calculate, Generations, Move, Pokemon } from "@smogon/calc";
+import { calculate, Field, Generations, Move, Pokemon, type State } from "@smogon/calc";
 
 export type CalcSet = {
   species: string,
@@ -8,13 +8,15 @@ export type CalcSet = {
   nature?: string,
   ivs?: Partial<Record<StatName, number>>,
   evs?: Partial<Record<StatName, number>>,
+  boosts?: Partial<Record<StatName, number>>,
 }
 
 export type CalcJobInput = {
   calcId: string;
-  attacker: { set: CalcSet },
-  defender: { set: CalcSet },
+  attacker: CalcSet,
+  defender: CalcSet,
   move: string
+  field?: State.Field,
 }
 
 self.onmessage = (event: MessageEvent<{ batchNum: number, jobs: CalcJobInput[] }>) => {
@@ -25,19 +27,21 @@ self.onmessage = (event: MessageEvent<{ batchNum: number, jobs: CalcJobInput[] }
       const gen = Generations.get(9);
       const result = calculate(
         gen,
-        new Pokemon(gen, job.attacker.set.species, {
-          item: job.attacker.set.item,
-          nature: job.attacker.set.nature,
-          ivs: job.attacker.set.ivs,
-          evs: job.attacker.set.evs,
+        new Pokemon(gen, job.attacker.species, {
+          item: job.attacker.item,
+          nature: job.attacker.nature,
+          ivs: job.attacker.ivs,
+          evs: job.attacker.evs,
+          boosts: job.attacker.boosts,
         }),
-        new Pokemon(gen, job.defender.set.species, {
-          item: job.defender.set.item,
-          nature: job.defender.set.nature,
-          ivs: job.defender.set.ivs,
-          evs: job.defender.set.evs,
+        new Pokemon(gen, job.defender.species, {
+          item: job.defender.item,
+          nature: job.defender.nature,
+          ivs: job.defender.ivs,
+          evs: job.defender.evs,
         }),
         new Move(gen, job.move),
+        new Field(job.field)
       );
       results.push({
         calcId: job.calcId,

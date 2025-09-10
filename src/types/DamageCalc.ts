@@ -1,5 +1,7 @@
+import type { State } from "@smogon/calc";
 import type { SetId } from "./PokemonSet";
 import type { TeamId } from "./PokemonTeam";
+import type { StatName } from "./Stats";
 
 export type CalcId = string;
 
@@ -8,12 +10,15 @@ export interface DamageCalc {
   teamId: TeamId;
   attacker?: {
     setId: SetId;
+    boosts?: Partial<Record<StatName, number>>;
   };
   move?: string;
   defender?: {
     setId: SetId;
+    boosts?: Partial<Record<StatName, number>>;
   }
-  cachedResult?: DamageCalcResult
+  field?: Partial<State.Field>;
+  cachedResult?: DamageCalcResult;
 }
 
 

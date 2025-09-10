@@ -17,22 +17,25 @@ function buildCalcJobs(state: Store, calcIds: CalcId[]): CalcJobInput[] {
     const defenderSet = state.sets[calc.defender.setId];
     return {
       calcId: calc.id,
-      attacker: { set: {
+      attacker: {
         species: attackerSet.species,
         item: attackerSet.item,
         nature: attackerSet.nature,
         ivs: { ...attackerSet.ivs },
         evs: { ...attackerSet.evs },
-      }},
-      defender: { set: {
+        boosts: calc.attacker?.boosts,
+      },
+      defender: {
         species: defenderSet.species,
         item: defenderSet.item,
         nature: defenderSet.nature,
         ivs: { ...defenderSet.ivs },
         evs: { ...defenderSet.evs },
-      }},
+        boosts: calc.defender?.boosts,
+      },
       move: calc.move,
-    }
+      field: {...calc.field},
+    } as CalcJobInput
   }).filter((job) => job !== undefined);
 }
 
