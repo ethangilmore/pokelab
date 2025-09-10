@@ -204,11 +204,11 @@ export const useStore = create(persist(
   }
 ));
 
-export const useSet = (id?: SetId) => useStore(s => id && s.sets[id]);
+export const useSet = (id?: SetId) => useStore(s => id ? s.sets[id] : undefined);
 
-export const useCalc = (id?: CalcId) => useStore(s => id && s.calcs[id]);
+export const useCalc = (id?: CalcId) => useStore(s => id ? s.calcs[id] : undefined);
 
-export const useTeam = (id?: TeamId) => useStore(s => id && s.teams[id]);
+export const useTeam = (id?: TeamId) => useStore(s => id ? s.teams[id] : undefined);
 
 export const useSelectedTeam = () => useStore(s => s.selectedTeamId ? s.teams[s.selectedTeamId] : undefined);
 

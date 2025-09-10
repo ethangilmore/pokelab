@@ -56,7 +56,7 @@ Dropdown.Target = ({ onClick, children, className, ...props }: DropdownTargetPro
   }
 
   return (
-    <button onClick={handleClick} className={`py-1 px-2 rounded border ${className}`} {...props}>
+    <button onClick={handleClick} className={`size-full ${className}`} {...props}>
       {children}
     </button>
   )
@@ -70,7 +70,7 @@ Dropdown.Content = ({ children, className, ...props }: DropdownContentProps) => 
   if (!isOpen) return;
 
   return (
-    <div className={`overflow-y-scroll absolute mt-1 z-50 bg-white border rounded shadow ${className}`} {...props}>
+    <div className={`overflow-y-scroll absolute mt-1 z-50 bg-white border rounded shadow text-left ${className}`} {...props}>
       {children}
     </div>
   )

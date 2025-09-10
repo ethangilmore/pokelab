@@ -14,7 +14,7 @@ function App() {
   const { addCalc } = useCalcActions();
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <button
         className="py-1 px-2 mb-4 rounded border"
         onClick={async () => {
@@ -26,7 +26,7 @@ function App() {
       </button>
       { selectedTeam && (
         <div>
-          <Dropdown>
+          <Dropdown className="rounded border py-1 px-2">
             <Dropdown.Target>
               Add Pokemon +
             </Dropdown.Target>

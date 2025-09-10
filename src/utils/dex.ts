@@ -22,7 +22,7 @@ export function getMove(move: string): Move {
 }
 
 export function getSpriteURL(species: string): string {
-  const { url } = Sprites.getPokemon(species);
+  const { url } = Sprites.getDexPokemon(species);
   return url;
 }
 

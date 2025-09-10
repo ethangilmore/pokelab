@@ -1,13 +1,12 @@
 import type { CalcId, DamageCalc, DamageCalcResult } from "@/types/DamageCalc";
 import { getSpriteURL } from "@/utils/dex";
 import type { SetId } from "@/types/PokemonSet";
-import { exportSets, importSets } from "@/utils/serialization";
+import { importSets } from "@/utils/serialization";
 import { useCalc, useCalcActions, useSelectedTeam, useSet, useSetActions, useTeamSetInfo } from "@/hooks/useStore";
 import { Dropdown } from "./Dropdown";
 import { getLearnSet } from "@/utils/dex";
 import type { ReactNode } from "react";
 
-// function PokemonSetCell({ setId, onSetChange }: { setId?: SetId, onSetChange: (set: Omit<PokemonSet,"id"|"teamId">) => void }) {
 function PokemonSetCell({ setId, onSetChange }: { setId?: SetId, onSetChange: (setId: SetId) => void }) {
   const { addSet } = useSetActions();
   const set = useSet(setId);
@@ -16,17 +15,13 @@ function PokemonSetCell({ setId, onSetChange }: { setId?: SetId, onSetChange: (s
   const librarySetsInfo = useTeamSetInfo(undefined);
 
   return (
-    <Dropdown className="w-full">
-      <Dropdown.Target className="w-full">
+    <Dropdown className={`min-w-0 rounded border ${set?.teamId && "border-black"} h-10 sm:h-12 md:h-14`}>
+      <Dropdown.Target>
         { set ? (
-          <div className="m-2 gap-4 grid grid-cols-[auto_auto] items-center justify-center inline-block">
-            <img className="w-24 h-24 m-auto object-contain" src={getSpriteURL(set.species)} />
-            <div>
-              {exportSets([set]).split('\n').filter((line) => !line.startsWith('-')).map((line, idx) => (
-                <div key={idx} className="text-left">{line}</div>
-              ))}
-            </div>
-          </div>
+        <div className="m-1 flex gap-1 items-center">
+          <img className="shrink-0 inline h-8 sm:h-10 md:h-12" src={getSpriteURL(set.species)}/>
+          <span className="truncate">{set.species}</span>
+        </div>
         ) : "Choose Set"}
       </Dropdown.Target>
       <Dropdown.Content>
@@ -35,7 +30,7 @@ function PokemonSetCell({ setId, onSetChange }: { setId?: SetId, onSetChange: (s
           <Dropdown.Item 
             onClick={async () => {
               const data = await navigator.clipboard.readText();
-              importSets(data).forEach((set) => addSet(set, selectedTeam?.id));
+              importSets(data).forEach((set) => addSet(set));
             }}
           >
             Copy from clipboard
@@ -60,7 +55,7 @@ function MoveCell({ attackerId, move, onMoveChange }: { attackerId?: string, mov
   const set = useSet(attackerId);
 
   return (
-    <Dropdown>
+    <Dropdown className="rounded border text-center">
       <Dropdown.Target>{move ?? "Choose Move"}</Dropdown.Target>
       <Dropdown.Content>
         <Dropdown.Search />
@@ -92,9 +87,8 @@ function MoveCell({ attackerId, move, onMoveChange }: { attackerId?: string, mov
 function ResultCell({ result }: { result?: DamageCalcResult }) {
   return (
     result ? (
-      <div className="flex flex-col items-center justify-center">
-        <span>{(100*result.percentRange[0]).toFixed(1)} - {(100*result.percentRange[1]).toFixed(1)}%</span>
-        <span>{result.koChance}</span>
+      <div className="m-1 text-center">
+        {(100*result.percentRange[0]).toFixed(1)} - {(100*result.percentRange[1]).toFixed(1)}%{result.koChance && " - "+result.koChance}
       </div>
     ) : (
       <></>
@@ -106,47 +100,26 @@ export function DamageCalc({ calcId }: { calcId: CalcId }) {
   const calc = useCalc(calcId);
 
   if (!calc) return <></>;
-  const { updateCalc, removeCalc } = useCalcActions();
+  const { updateCalc } = useCalcActions();
 
   return (
-    <div className="mt-4 rounded border shadow grid grid-cols-[5fr_1fr] divide-x">
-      <div className="grid grid-rows-[0pt_1fr_0pt] divide-y-1">
-        <div className="px-2 grid grid-cols-2 divide-x-1">
-          <div></div>
-          <div></div>
-        </div>
-        <div className="grid grid-cols-[1fr_128pt_1fr] divide-x-1">
-          <div className="p-4 flex justify-center items-center">
-            <PokemonSetCell setId={calc.attacker?.setId} onSetChange={(setId) => {
-              updateCalc(calcId, {
-                attacker: { setId },
-              });
-            }}/>
-          </div>
-          <div className="p-4 flex justify-center items-center">
-            <MoveCell attackerId={calc.attacker?.setId} move={calc.move} onMoveChange={(move) => {
-              updateCalc(calcId, { move })
-            }}/>
-          </div>
-          <div className="p-4 flex justify-center items-center">
-            <PokemonSetCell setId={calc.defender?.setId} onSetChange={(setId) => {
-              updateCalc(calcId, {
-                defender: { setId }
-              });
-            }}/>
-          </div>
-        </div>
-        <div className="px-2 flex justify-center">
-        </div>
+    <div className="rounded border bg-green-400 mt-2 text-xs sm:text-sm md:text-base">
+      <div className="p-1 grid grid-cols-[2fr_8rem_2fr] gap-1 rounded bg-white shadow">
+        <PokemonSetCell setId={calc.attacker?.setId} onSetChange={(setId) => {
+          updateCalc(calcId, {
+            attacker: { setId },
+          });
+        }}/>
+        <MoveCell attackerId={calc.attacker?.setId} move={calc.move} onMoveChange={(move) => {
+          updateCalc(calcId, { move })
+        }}/>
+        <PokemonSetCell setId={calc.defender?.setId} onSetChange={(setId) => {
+          updateCalc(calcId, {
+            defender: { setId }
+          });
+        }}/>
       </div>
-      <div className="p-2 flex flex-col justify-center h-full">
-        <div className="m-auto">
-          <ResultCell result={calc.cachedResult} />
-        </div>
-        <button className="rounded border p-1" onClick={() => {removeCalc(calcId)}}>
-          Delete
-        </button>
-      </div>
+      <ResultCell result={calc.cachedResult} />
     </div>
   )
 }
