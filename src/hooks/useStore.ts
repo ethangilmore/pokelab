@@ -92,7 +92,7 @@ function unlinkCalcFromTeam(state: Store, calcId: CalcId, teamId: TeamId) {
   }
 }
 
-type Store = {
+export type Store = {
   teams: Record<TeamId, PokemonTeam>;
   sets: Record<SetId, PokemonSet>;
   calcs: Record<CalcId, DamageCalc>;

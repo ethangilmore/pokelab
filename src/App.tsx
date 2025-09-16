@@ -1,10 +1,9 @@
 import { useCalcActions, useSelectedTeam, useSetActions, useTeamActions } from "@/hooks/useStore";
 import { getDefaultSet } from "@/utils/dex";
-import { PokemonCard } from "./components/PokemonCard";
-import { importSets } from "./utils/serialization";
-import { DamageCalc } from "./components/DamageCalc";
-
-import { Dropdown } from "./components/Dropdown";
+import { PokemonCard } from "@/components/PokemonCard";
+import { importSets } from "@/utils/serialization";
+import { DamageCalc } from "@/components/DamageCalc";
+import { Dropdown } from "@/components/Dropdown";
 import { Dex } from "@pkmn/dex";
 
 function App() {
@@ -26,13 +25,13 @@ function App() {
       </button>
       { selectedTeam && (
         <div>
-          <Dropdown className="rounded border py-1 px-2">
-            <Dropdown.Target>
+          <Dropdown.Provider>
+            <Dropdown.Button className="rounded border py-1 px-2">
               Add Pokemon +
-            </Dropdown.Target>
-            <Dropdown.Content className="max-h-[512pt]">
-              <Dropdown.Search />
-              <Dropdown.Section label="Import Set" searchable>
+            </Dropdown.Button>
+            <Dropdown.Content>
+              <Dropdown.SearchBar />
+              <Dropdown.Section label="Import Set">
                 <Dropdown.Item 
                   onClick={async () => {
                     const data = await navigator.clipboard.readText();
@@ -55,7 +54,7 @@ function App() {
               ))}
               </Dropdown.Section>
             </Dropdown.Content>
-          </Dropdown>
+          </Dropdown.Provider>
           <button
             className="py-1 px-2 mx-2 rounded border"
             onClick={async () => {
@@ -72,6 +71,7 @@ function App() {
           {selectedTeam.calcs.map((calcId) => (
             <DamageCalc key={calcId} calcId={calcId} />
           ))}
+          <DamageCalc calcId={""} />
 
           {/*<CoverageChart />*/}
           {/*<SpeedChart />*/}
