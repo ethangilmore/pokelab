@@ -23,23 +23,13 @@ self.onmessage = (event: MessageEvent<{ batchNum: number, jobs: CalcJobInput[] }
   const { batchNum, jobs } = event.data;
   const results: DamageCalcResult[] = [];
   for (const job of jobs) {
+    console.log(job.defender.boosts);
     try {
       const gen = Generations.get(9);
       const result = calculate(
         gen,
-        new Pokemon(gen, job.attacker.species, {
-          item: job.attacker.item,
-          nature: job.attacker.nature,
-          ivs: job.attacker.ivs,
-          evs: job.attacker.evs,
-          boosts: job.attacker.boosts,
-        }),
-        new Pokemon(gen, job.defender.species, {
-          item: job.defender.item,
-          nature: job.defender.nature,
-          ivs: job.defender.ivs,
-          evs: job.defender.evs,
-        }),
+        new Pokemon(gen, job.attacker.species, job.attacker),
+        new Pokemon(gen, job.defender.species, job.defender),
         new Move(gen, job.move),
         new Field(job.field)
       );

@@ -58,7 +58,7 @@ function App() {
           <button
             className="py-1 px-2 mx-2 rounded border"
             onClick={async () => {
-              if (selectedTeam) addCalc({}, selectedTeam.id)
+              if (selectedTeam) addCalc({attacker: {}, defender: {}}, selectedTeam.id)
             }}
           >
             Add Calc +

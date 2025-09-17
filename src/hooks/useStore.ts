@@ -12,7 +12,7 @@ import type { CalcJobInput } from "@/workers/calcWorker";
 function buildCalcJobs(state: Store, calcIds: CalcId[]): CalcJobInput[] {
   return calcIds.map((calcId) => {
     const calc = state.calcs[calcId];
-    if (!calc?.attacker || !calc?.defender || !calc?.move) return;
+    if (!calc.attacker.setId || !calc.defender.setId || !calc?.move) return;
     const attackerSet = state.sets[calc.attacker.setId];
     const defenderSet = state.sets[calc.defender.setId];
     return {
@@ -23,7 +23,7 @@ function buildCalcJobs(state: Store, calcIds: CalcId[]): CalcJobInput[] {
         nature: attackerSet.nature,
         ivs: { ...attackerSet.ivs },
         evs: { ...attackerSet.evs },
-        boosts: calc.attacker?.boosts,
+        boosts: { ...calc.attacker.boosts },
       },
       defender: {
         species: defenderSet.species,
@@ -31,7 +31,7 @@ function buildCalcJobs(state: Store, calcIds: CalcId[]): CalcJobInput[] {
         nature: defenderSet.nature,
         ivs: { ...defenderSet.ivs },
         evs: { ...defenderSet.evs },
-        boosts: calc.defender?.boosts,
+        boosts: { ...calc.defender.boosts },
       },
       move: calc.move,
       field: {...calc.field},

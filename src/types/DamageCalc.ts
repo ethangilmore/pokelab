@@ -8,13 +8,13 @@ export type CalcId = string;
 export interface DamageCalc {
   id: CalcId;
   teamId: TeamId;
-  attacker?: {
-    setId: SetId;
+  attacker: {
+    setId?: SetId;
     boosts?: Partial<Record<StatName, number>>;
   };
   move?: string;
-  defender?: {
-    setId: SetId;
+  defender: {
+    setId?: SetId;
     boosts?: Partial<Record<StatName, number>>;
   }
   field?: Partial<State.Field>;
