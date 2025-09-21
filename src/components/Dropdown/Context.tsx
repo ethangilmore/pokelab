@@ -11,7 +11,7 @@ type DropdownContext = {
 
 export const Context = createContext<DropdownContext | null>(null);
 
-export const useDropdownContext = () => {
+export const useDropdown = () => {
   const context =  useContext(Context);
   if (!context) throw new Error("Using Dropdown Context outside of Dropdown Provider");
   return context;

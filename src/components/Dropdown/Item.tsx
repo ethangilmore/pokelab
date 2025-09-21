@@ -1,5 +1,5 @@
 import React from "react";
-import { useDropdownContext } from "./Context";
+import { useDropdown } from "./Context";
 
 
 export type ItemProps = React.ComponentProps<'button'> & {
@@ -7,7 +7,7 @@ export type ItemProps = React.ComponentProps<'button'> & {
 };
 
 export const Item = ({ onClick, children, className, searchTerm, ...props }: ItemProps) => {
-  const { isOpen, setIsOpen, sectionIndent, setSearchQuery } = useDropdownContext();
+  const { isOpen, setIsOpen, sectionIndent, setSearchQuery } = useDropdown();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     if (props.disabled) return;

@@ -1,11 +1,11 @@
 import React from "react";
-import { useDropdownContext } from "./Context";
+import { useDropdown } from "./Context";
 
 
 type DropdownSearchProps = React.ComponentProps<'input'>;
 
 export const SearchBar = (props: DropdownSearchProps) => {
-  const { searchQuery, setSearchQuery } = useDropdownContext();
+  const { searchQuery, setSearchQuery } = useDropdown();
 
   return (
     <div className="sticky bg-white m-1">

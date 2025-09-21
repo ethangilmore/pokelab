@@ -1,10 +1,10 @@
 import React from "react";
-import { useDropdownContext } from "./Context";
+import { useDropdown } from "./Context";
 
 type DropdownTargetProps = React.ComponentProps<'button'>;
 
 export const Button = ({ onClick, children, ...props }: DropdownTargetProps) => {
-  const { isOpen, setIsOpen, setSearchQuery, buttonRef } = useDropdownContext();
+  const { isOpen, setIsOpen, setSearchQuery, buttonRef } = useDropdown();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     setSearchQuery("");

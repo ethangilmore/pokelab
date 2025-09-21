@@ -1,20 +1,22 @@
 import { getLearnSet } from "@/utils/dex";
 import { Dropdown } from "@/components/Dropdown";
 import { useSet } from "@/hooks/useStore";
+import { useDamageCalc } from "./Context";
 
-export function MoveDropdown({ attackerId, move, onMoveChange }: { attackerId?: string, move?: string, onMoveChange: (move: string) => void }) {
-  const set = useSet(attackerId);
+export function MoveDropdown() {
+  const { calc, updateMove } = useDamageCalc();
+  const set = useSet(calc.attacker.setId);
 
   return (
     <Dropdown.Provider>
-      <Dropdown.Button className="rounded border">{move ?? "Choose Move"}</Dropdown.Button>
+      <Dropdown.Button className="rounded border">{calc.move ?? "Choose Move"}</Dropdown.Button>
       <Dropdown.Content>
         <Dropdown.SearchBar />
         <Dropdown.Section label="From Set">
           { set && set.moves.map((move) => (
             <Dropdown.Item
               searchTerm={move}
-              onClick={() => onMoveChange(move)}
+              onClick={() => updateMove(move)}
             >
               {move}
             </Dropdown.Item>
@@ -24,7 +26,7 @@ export function MoveDropdown({ attackerId, move, onMoveChange }: { attackerId?: 
           { set && getLearnSet(set.species).filter(move => !set.moves.includes(move)).map((move) => (
             <Dropdown.Item
               searchTerm={move}
-              onClick={() => onMoveChange(move)}
+              onClick={() => updateMove(move)}
             >
               {move}
             </Dropdown.Item>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "./Provider";
-import { useDropdownContext } from "./Context";
+import { useDropdown } from "./Context";
 
 export type SectionProps = React.ComponentProps<'div'> & {
   searchable?: boolean;
@@ -8,7 +8,7 @@ export type SectionProps = React.ComponentProps<'div'> & {
 };
 
 export const Section = ({ searchable, label, children, className, ...props }: SectionProps) => {
-  const { sectionIndent, ...context } = useDropdownContext();
+  const { sectionIndent, ...context } = useDropdown();
 
   return (
     <Provider value={{ ...context, sectionIndent: sectionIndent+1 }}>

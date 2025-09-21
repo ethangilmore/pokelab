@@ -1,5 +1,5 @@
 import React, { cloneElement, isValidElement, useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import { useDropdownContext } from "./Context";
+import { useDropdown } from "./Context";
 import { Item, type ItemProps } from "./Item";
 import { Section, type SectionProps } from "./Section";
 import { SearchBar } from "./SearchBar";
@@ -7,7 +7,7 @@ import { SearchBar } from "./SearchBar";
 type ContentProps = React.ComponentProps<"div">;
 
 export const Content = ({ children, className, ...props }: ContentProps) => {
-  const { isOpen, setIsOpen, searchQuery, setSearchQuery, buttonRef } = useDropdownContext();
+  const { isOpen, setIsOpen, searchQuery, setSearchQuery, buttonRef } = useDropdown();
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

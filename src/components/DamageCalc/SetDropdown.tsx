@@ -1,13 +1,18 @@
 import React from "react";
-import type { SetId } from "@/types/PokemonSet";
 import { Dropdown } from "@/components/Dropdown";
 import { importSets } from "@/utils/serialization";
 import { getSpriteURL } from "@/utils/dex";
 import { useSetActions, useSet, useSelectedTeam, useTeamSetInfo } from "@/hooks/useStore";
+import { useDamageCalc } from "./Context";
 
-export function SetDropdown({ setId, onSetChange }: { setId?: SetId, onSetChange: (setId: SetId) => void }) {
+type SetDropdownProps = {
+  side: "attacker" | "defender";
+}
+
+export function SetDropdown({ side }: SetDropdownProps) {
+  const { calc, updateSet } = useDamageCalc();
   const { addSet } = useSetActions();
-  const set = useSet(setId);
+  const set = useSet(calc[side].setId);
   const selectedTeam = useSelectedTeam();
   const teamSetsInfo = useTeamSetInfo(selectedTeam?.id);
   const librarySetsInfo = useTeamSetInfo(undefined);
@@ -39,7 +44,7 @@ export function SetDropdown({ setId, onSetChange }: { setId?: SetId, onSetChange
             <Dropdown.Item
               searchTerm={name}
               key={setId}
-              onClick={() => onSetChange(setId)}
+              onClick={() => updateSet(side, setId)}
             >
               {name as React.ReactNode}
             </Dropdown.Item>
@@ -50,7 +55,7 @@ export function SetDropdown({ setId, onSetChange }: { setId?: SetId, onSetChange
             <Dropdown.Item
               searchTerm={name}
               key={setId}
-              onClick={() => onSetChange(setId)}
+              onClick={() => updateSet(side, setId)}
             >
               {name as React.ReactNode}
             </Dropdown.Item>
