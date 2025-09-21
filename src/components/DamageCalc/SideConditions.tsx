@@ -1,19 +1,36 @@
+import type { State } from "@smogon/calc";
+import { useDamageCalc } from "./Context";
+import { sideKeys } from "./DamageCalc";
+
 type SideConditionsProps = {
-  side: "attackerSide" | "defenderSide";
+  side: "attacker" | "defender";
 }
 
-export function SideConditions({ } : SideConditionsProps) {
+export function SideConditions({ side } : SideConditionsProps) {
+  const { calc: { field }, updateSideConditions } = useDamageCalc();
+  const sideKey = side + "Side" as "attackerSide" | "defenderSide";
+
+
+  const toggleCondition = (condition: keyof State.Side) => {
+    return () => {
+      updateSideConditions(side, {
+        [condition]: !field?.[sideKey]?.[condition]
+      })
+    }
+  }
+
+  const conditions: (keyof State.Side)[] = ['isHelpingHand', 'isAuroraVeil', 'isReflect', 'isLightScreen', 'isFriendGuard', 'isTailwind', 'isFlowerGift', 'isBattery']
+
   return (
     <div className="bg-white flex flex-col rounded border divide-y">
-      <button className="px-1">Helping Hand</button> 
-      <button className="px-1">Aurora Veil</button> 
-      <button className="px-1">Reflect</button> 
-      <button className="px-1">Light Screen</button> 
-      <button className="px-1">Friend Guard</button> 
-      <button className="px-1">Tailwind</button> 
-      <button className="px-1">Flower Gift</button> 
-      <button className="px-1">Battery</button> 
-      <button className="px-1">Switching Out</button> 
+      {conditions.map((condition) => (
+        <button
+        key={condition}
+        className={`px-1 ${field?.[sideKey]?.[condition] && 'bg-gray-200'}`}
+        onClick={toggleCondition(condition)}>
+          {sideKeys[condition]}
+        </button>
+      ))}
     </div>
   )
 }

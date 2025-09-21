@@ -23,7 +23,6 @@ self.onmessage = (event: MessageEvent<{ batchNum: number, jobs: CalcJobInput[] }
   const { batchNum, jobs } = event.data;
   const results: DamageCalcResult[] = [];
   for (const job of jobs) {
-    console.log(job.defender.boosts);
     try {
       const gen = Generations.get(9);
       const result = calculate(
@@ -39,7 +38,6 @@ self.onmessage = (event: MessageEvent<{ batchNum: number, jobs: CalcJobInput[] }
         percentRange: result.range().map((dmg) => dmg/result.defender.maxHP()) as [number, number]
       });
     } catch (err) {
-      console.error(err);
       results.push({
         calcId: job.calcId,
         koChance: "",

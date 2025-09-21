@@ -34,7 +34,15 @@ function buildCalcJobs(state: Store, calcIds: CalcId[]): CalcJobInput[] {
         boosts: { ...calc.defender.boosts },
       },
       move: calc.move,
-      field: {...calc.field},
+      field: {
+        ...calc.field,
+        attackerSide: {
+          ...calc.field?.attackerSide
+        },
+        defenderSide: {
+          ...calc.field?.defenderSide
+        }
+      }
     } as CalcJobInput
   }).filter((job) => job !== undefined);
 }

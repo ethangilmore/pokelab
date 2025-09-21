@@ -23,14 +23,24 @@ export function StatBoosts({ side }: StatBoostsProps) {
   return (
     <div className="flex flex-col gap-1 p-1 max-w-min">
       {(["atk", "spa", "def", "spd", "spe"] as StatName[]).map((stat) => (
-        <div className="flex items-center gap-1 justify-between">
+        <div key={stat} className="flex items-center gap-1 justify-between">
           <span>{stat.charAt(0).toUpperCase() + stat.slice(1)}</span>
-          <div className="flex items-center rounded border bg-white">
-            <button onClick={updateStat(stat, dec)} className="p-[2px] size-4"><MinusIcon /></button>
+          <div className="flex rounded border bg-white">
+            <button
+              onClick={updateStat(stat, dec)}
+              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) < 0 && 'bg-gray-200'}`}
+            >
+              <MinusIcon />
+            </button>
             <span className="p-[2px] px-1 border-x min-w-[1.5rem] text-center">
-            {Intl.NumberFormat('en-us', { signDisplay: 'always' }).format(calc[side].boosts?.[stat] ?? 0)}
+              {Intl.NumberFormat('en-us', { signDisplay: 'always' }).format(calc[side].boosts?.[stat] ?? 0)}
             </span>
-            <button onClick={updateStat(stat, inc)} className="p-[2px] size-4"><PlusIcon /></button>
+            <button
+              onClick={updateStat(stat, inc)}
+              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) > 0 && 'bg-gray-200'}`}
+            >
+              <PlusIcon />
+            </button>
           </div>
         </div>
       ))}

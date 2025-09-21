@@ -1,15 +1,15 @@
 import { useDamageCalc } from "./Context"
 
 export function FieldChips() {
- const { calc, isOpen } = useDamageCalc();
- const { attackerSide, defenderSide, ...field } = calc.field ?? {};
+ const { isOpen, getFieldConditions } = useDamageCalc();
 
   return (
-    <div className="p-1 empty:p-0 empty:h-1 text-xs md:text-sm flex gap-1 overflow-x-hidden">
-      {Object.values(field).map((effect) => (
-        <div className="bg-white px-2 rounded align-middle p-1 min-w-max">{effect}</div>
+    <div className="p-1 empty:p-0 empty:h-1 text-xs md:text-sm flex gap-1 justify-center overflow-x-hidden">
+      {isOpen && <div className="text-transparent py-1 max-w-0">.</div>}
+      {getFieldConditions().map((condition) => (
+        <div className="bg-white py-1 px-2 rounded align-middle  min-w-max">{condition}</div>
       ))}
-      {isOpen && <div className="text-transparent px-2 py-1">+</div>}
+      {isOpen && <div className="text-transparent py-1 max-w-0">.</div>}
     </div>
   )
 }
