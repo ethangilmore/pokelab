@@ -1,4 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import React, { cloneElement, isValidElement, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useDropdown } from "./Context";
 import { Item, type ItemProps } from "./Item";
 import { Section, type SectionProps } from "./Section";
@@ -9,6 +9,7 @@ type ContentProps = React.ComponentProps<"div">;
 export const Content = ({ children, className, ...props }: ContentProps) => {
   const { isOpen, setIsOpen, searchQuery, setSearchQuery, buttonRef } = useDropdown();
   const panelRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ top: 0, left: 0, minWidth: 0 });
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -25,17 +26,19 @@ export const Content = ({ children, className, ...props }: ContentProps) => {
   const positionPanel = () => {
     if (!isOpen || !panelRef.current || !buttonRef.current) return;
     const button = buttonRef.current.getBoundingClientRect();
-    const panel = panelRef.current;
+    // const panel = panelRef.current;
 
-    panel.style.position = "fixed";
-    panel.style.top = `${Math.round(button.bottom)}px`;
-    panel.style.left = `${Math.round(button.left)}px`;
-    panel.style.minWidth = `${Math.round(button.width)}px`;
 
-    const rightOverflow = button.left + panel.offsetWidth - window.innerWidth + 24;
-    if (rightOverflow > 0) {
-      panel.style.left = `${Math.max(8, button.left - rightOverflow)}px`;
-    }
+    setPosition({
+      top: button.bottom + window.scrollY,
+      left: button.left + window.scrollX,
+      minWidth: button.width,
+    })
+
+    // const rightOverflow = button.left + panel.offsetWidth - window.innerWidth + 24;
+    // if (rightOverflow > 0) {
+    //   panel.style.left = `${Math.max(8, button.left - rightOverflow)}px`;
+    // }
   };
 
   useLayoutEffect(() => {
@@ -79,6 +82,7 @@ export const Content = ({ children, className, ...props }: ContentProps) => {
   return (
     <div
       ref={panelRef}
+      style={{...position}}
       className={`fixed mt-1 overflow-y-scroll max-h-[32rem] bg-white border rounded shadow ${className}`}
       {...props}
     >
