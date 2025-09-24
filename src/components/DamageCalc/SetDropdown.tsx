@@ -42,8 +42,8 @@ export function SetDropdown({ side }: SetDropdownProps) {
         <Dropdown.Section label="From Team" searchable>
           {Object.entries(teamSetsInfo).map(([setId, name]) => (
             <Dropdown.Item
-              searchTerm={name}
               key={setId}
+              searchTerm={name}
               onClick={() => updateSet(side, setId)}
             >
               {name as React.ReactNode}
@@ -53,8 +53,8 @@ export function SetDropdown({ side }: SetDropdownProps) {
         <Dropdown.Section label="From Library" searchable>
           {Object.entries(librarySetsInfo).map(([setId, name]) => (
             <Dropdown.Item
-              searchTerm={name}
               key={setId}
+              searchTerm={name}
               onClick={() => updateSet(side, setId)}
             >
               {name as React.ReactNode}

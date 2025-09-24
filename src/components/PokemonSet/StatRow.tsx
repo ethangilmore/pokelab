@@ -37,19 +37,19 @@ export function StatRow({ stat }: StatRowProps) {
         onChange={(e) => updateSetIvs({ [stat]: Number(e.target.value) })}
       />
       <input
-        className="min-w-16 max-w-64"
+        className="min-w-16"
         type="range"
         min={0}
         max={252}
         value={ev}
         onChange={(e) => updateSetEvs({ [stat]: e.target.value })}
       />
+      <div className="min-w-[2rem] text-center">
+        {ev}
+      </div>
       <div className="rounded border divide-x bg-white">
         <button className="min-w-3">-</button>
         <button className="min-w-3">+</button>
-      </div>
-      <div className="min-w-6">
-        {ev}
       </div>
     </>
   )

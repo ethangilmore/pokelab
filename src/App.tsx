@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="p-2">
       <button
-        className="py-1 px-2 mb-4 rounded border"
+        className="py-1 px-2 mb-2 rounded border"
         onClick={async () => {
           const teamId = addTeam("New Team");
           selectTeam(teamId);
@@ -25,7 +25,7 @@ function App() {
         Add Team +
       </button>
       { selectedTeam && (
-        <div>
+        <div className="max-w-3xl">
           <Dropdown.Provider>
             <Dropdown.Button className="rounded border py-1 px-2">
               Add Pokemon +
@@ -47,7 +47,7 @@ function App() {
                 <Dropdown.Item
                   searchTerm={species.name}
                   onClick={() => {
-                    addSet(getDefaultSet(species.id), selectedTeam.id);
+                    addSet(getDefaultSet(species.name), selectedTeam.id);
                   }}
                 >
                   {species.name}
@@ -74,8 +74,6 @@ function App() {
           {selectedTeam.calcs.map((calcId) => (
             <DamageCalc key={calcId} calcId={calcId} />
           ))}
-          <DamageCalc calcId={""} />
-
           {/*<CoverageChart />*/}
           {/*<SpeedChart />*/}
         </div>

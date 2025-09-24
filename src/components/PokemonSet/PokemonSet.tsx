@@ -5,6 +5,17 @@ import { PokemonSetContext } from "./Context";
 import type { PokemonSet } from "@pkmn/dex";
 import type { StatName } from "@/types/Stats";
 import { StatRow } from "./StatRow";
+import { Dropdown } from "@/components/Dropdown";
+
+export function MockDropdown({ children }: { children: React.ReactNode }) {
+  return (
+    <Dropdown.Provider>
+      <Dropdown.Button className="p-1 bg-white rounded border">
+        {children}
+      </Dropdown.Button>
+    </Dropdown.Provider>
+  )
+}
 
 type PokemonSetProps = {
   setId: SetId;
@@ -25,20 +36,34 @@ export function PokemonSet({ setId }: PokemonSetProps) {
 
   return (
     <PokemonSetContext.Provider value={contextValue}>
-      <div className="flex p-2 border rounded shadow">
-        <div className="aspect-square flex flex-col justify-center pr-1">
-          <img
-            src={getSpriteURL(set.species)}
-            alt={set.species}
-            className="max-w-24"
-          />
-        </div>
+      <div className="text-xs sm:text-sm md:text-base p-1 grid grid-cols-[auto_1fr_1fr_1fr] gap-1 border rounded shadow">
+        <img
+          className="max-w-24 flex flex-col justify-center pr-1 my-auto"
+          src={getSpriteURL(set.species)}
+          alt={set.species}
+        />
 
-        <div className="flex-1 grid grid-cols-[auto_1fr_auto_1fr_auto_auto] gap-x-1 gap-y-px text-xs">
+        <div className="col-span-3 grid grid-cols-[auto_2fr_auto_1fr_auto_auto] gap-y-px gap-x-1">
           {(["hp", "atk", "spa", "def", "spd", "spe"] as StatName[]).map((stat) => (
-            <StatRow stat={stat} />
+            <StatRow key={stat} stat={stat} />
           ))}
         </div>
+
+        <div className="row-span-2 grid grid-rows-subgrid gap-px">
+          <MockDropdown>{set.species ?? "Select Species"}</MockDropdown>
+        </div>
+        <div className="row-span-2 grid grid-rows-subgrid gap-px">
+          <MockDropdown>{set.ability}</MockDropdown>
+          <MockDropdown>{set.item ?? "Select Item"}</MockDropdown>
+        </div>
+        <div className="row-span-2 col-span-2 grid grid-rows-subgrid grid-cols-subgrid gap-px">
+          {Array.from({ length: 4 }, (_, idx) => (
+            <MockDropdown key={idx}>
+              Select Move
+            </MockDropdown>
+          ))}
+        </div>
+
       </div>
     </PokemonSetContext.Provider>
   );

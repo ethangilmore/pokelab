@@ -27,6 +27,7 @@ export function MoveDropdown() {
         <Dropdown.Section label="Legal Moves">
           { set && getLearnSet(set.species).filter(move => !set.moves.includes(move)).map((move) => (
             <Dropdown.Item
+              key={move}
               searchTerm={move}
               onClick={() => updateMove(move)}
             >

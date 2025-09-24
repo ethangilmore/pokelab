@@ -9,7 +9,7 @@ export function Team() {
   if (!team) return;
 
   return (
-    <div className="my-4">
+    <div className="my-2">
       <div className="flex">
         {team.sets.map((id, idx) => (
           <button
