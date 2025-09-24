@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Context } from "./Context";
 
 type BaseProps = React.ComponentProps<typeof Context.Provider>
@@ -7,7 +7,7 @@ type ProviderProps = Omit<BaseProps, "value"> & { value?: BaseProps["value"] }
 export const Provider = ({ children, value, ...props }: React.PropsWithChildren<ProviderProps>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("")
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [button, setButton] = useState<HTMLButtonElement | null>(null);
 
   const contextValue = value ?? {
     isOpen,
@@ -15,7 +15,8 @@ export const Provider = ({ children, value, ...props }: React.PropsWithChildren<
     searchQuery,
     setSearchQuery,
     sectionIndent: 0,
-    buttonRef,
+    button,
+    setButton,
   }
 
   return (

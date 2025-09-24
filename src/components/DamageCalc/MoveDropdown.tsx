@@ -9,7 +9,9 @@ export function MoveDropdown() {
 
   return (
     <Dropdown.Provider>
-      <Dropdown.Button className="rounded border">{calc.move ?? "Choose Move"}</Dropdown.Button>
+      <Dropdown.Button className="rounded border">
+        {calc.move ?? "Choose Move"}
+      </Dropdown.Button>
       <Dropdown.Content>
         <Dropdown.SearchBar />
         <Dropdown.Section label="From Set">

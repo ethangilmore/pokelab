@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 type DropdownContext = {
   isOpen: boolean,
@@ -6,7 +6,8 @@ type DropdownContext = {
   searchQuery: string,
   setSearchQuery: (query: string) => void,
   sectionIndent: number,
-  buttonRef: React.RefObject<HTMLButtonElement | null>,
+  setButton: (button: HTMLButtonElement | null) => void,
+  button: HTMLButtonElement | null,
 }
 
 export const Context = createContext<DropdownContext | null>(null);
