@@ -10,10 +10,10 @@ type DropdownContext = {
   button: HTMLButtonElement | null,
 }
 
-export const Context = createContext<DropdownContext | null>(null);
+export const DropdownContext = createContext<DropdownContext | null>(null);
 
 export const useDropdown = () => {
-  const context =  useContext(Context);
+  const context =  useContext(DropdownContext);
   if (!context) throw new Error("Using Dropdown Context outside of Dropdown Provider");
   return context;
 }

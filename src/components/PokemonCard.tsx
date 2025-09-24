@@ -14,7 +14,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ setId }) => {
   if (!set) return;
 
   return (
-    <div className="flex mt-4 p-2 h-[200px] border rounded shadow">
+    <div className="flex p-2 h-[150px] border rounded shadow">
       <div className="aspect-square p-4">
         <img
           src={getSpriteURL(set.species)}

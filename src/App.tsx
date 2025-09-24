@@ -1,9 +1,10 @@
 import { useCalcActions, useSelectedTeam, useSetActions, useTeamActions } from "@/hooks/useStore";
 import { getDefaultSet } from "@/utils/dex";
-import { PokemonCard } from "@/components/PokemonCard";
+// import { PokemonCard } from "@/components/PokemonCard";
 import { importSets } from "@/utils/serialization";
 import { DamageCalc } from "@/components/DamageCalc";
 import { Dropdown } from "@/components/Dropdown";
+import { Team } from "@/components/Team";
 import { Dex } from "@pkmn/dex";
 
 function App() {
@@ -64,9 +65,11 @@ function App() {
             Add Calc +
           </button>
 
-          {selectedTeam.sets.map((setId) => (
+          <Team />
+
+          {/*selectedTeam.sets.map((setId) => (
             <PokemonCard key={setId} setId={setId} />
-          ))}
+          ))*/}
 
           {selectedTeam.calcs.map((calcId) => (
             <DamageCalc key={calcId} calcId={calcId} />

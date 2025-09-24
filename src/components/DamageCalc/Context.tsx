@@ -21,7 +21,7 @@ export const DamageCalcContext = createContext<DamageCalcContext | null>(null);
 
 export const useDamageCalc = () => {
   const context =  useContext(DamageCalcContext);
-  if (!context) throw new Error("Using Damage Calc Context outside of Dropdown Provider");
+  if (!context) throw new Error("Using Damage Calc Context outside of Damage Calc Provider");
   return context;
 }
 

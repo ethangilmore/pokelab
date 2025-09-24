@@ -27,8 +27,8 @@ const StatBar: React.FC<StatBarProps> = ({
   const value = Math.round(baseValue * (level / 50) + (iv * level) / 100 + (ev * level) / 400);
 
   return (
-    <div className={`${className} flex gap-2`}>
-      <div className="w-[80px] text-sm font-medium flex flex-shrink-1 items-center">
+    <div className={`${className} flex gap-2 text-xs`}>
+      <div className="w-[80px] font-medium flex flex-shrink-1 items-center">
         {label}
       </div>
       <div className="flex-1 bg-gray-200 rounded-full overflow-hidden relative">
@@ -41,7 +41,7 @@ const StatBar: React.FC<StatBarProps> = ({
           style={{ width: `${(baseValue / 255) * 100}%` }}
         />
       </div>
-      <div className="w-6 text-sm font-medium text-right flex items-center">
+      <div className="w-6 font-medium text-right flex items-center">
         {baseValue}
       </div>
       <input
@@ -50,7 +50,7 @@ const StatBar: React.FC<StatBarProps> = ({
         max="31"
         value={iv}
         onChange={(e) => onIvChange(Number(e.target.value))}
-        className="w-12 text-sm border rounded px-1"
+        className="w-12 border rounded px-1"
       />
       <input
         type="range"
@@ -66,9 +66,9 @@ const StatBar: React.FC<StatBarProps> = ({
         max="252"
         value={ev}
         onChange={(e) => onEvChange(Number(e.target.value))}
-        className="w-14 text-sm border rounded px-1"
+        className="w-14 border rounded px-1"
       />
-      <div className="w-6 text-sm font-medium text-right flex items-center">
+      <div className="w-6 font-medium text-right flex items-center">
         {value}
       </div>
     </div>
