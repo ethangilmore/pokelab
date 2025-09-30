@@ -54,9 +54,9 @@ export function MoveDropdown({ setId, move, onMoveChange }: MoveDropdownProps) {
       <Dropdown.Button className={`flex items-center justify-between px-1 gap-1 rounded border-2 bg-white ${colors[(type as keyof typeof colors)]}`}>
         {move ? (
           <>
-            <img className="h-[1em] right-0" src={`https://play.pokemonshowdown.com/sprites/categories/${category}.png`} />
+            <img style={{ imageRendering: "pixelated"}} className="h-[1em] right-0" src={`https://play.pokemonshowdown.com/sprites/categories/${category}.png`} />
             <div className="truncate">{move}</div>
-            <img className="h-[1em] right-0" src={`https://play.pokemonshowdown.com/sprites/types/${type}.png`} />
+            <img style={{ imageRendering: "pixelated"}} className="h-[1em] right-0" src={`https://play.pokemonshowdown.com/sprites/types/${type}.png`} />
           </>
         ) : (
           <span>Select Move...</span>

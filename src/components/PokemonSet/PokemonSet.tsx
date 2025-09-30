@@ -1,12 +1,12 @@
-import type { SetId } from "@/types/PokemonSet";
+import type { PokemonSet, SetId } from "@/types/PokemonSet";
 import { getSpriteURL } from "@/utils/dex";
 import { useSet, useSetActions } from "@/hooks/useStore";
 import { PokemonSetContext } from "./Context";
-import type { PokemonSet } from "@pkmn/dex";
 import type { StatName } from "@/types/Stats";
 import { StatRow } from "./StatRow";
 import { Dropdown } from "@/components/Dropdown";
 import { MoveDropdown } from "@/components/MoveDropdown";
+import { ItemDropdown } from "../ItemDropdown";
 
 export function MockDropdown({ children, className }: { children: React.ReactNode, className?: string }) {
   return (
@@ -25,6 +25,7 @@ type PokemonSetProps = {
 export function PokemonSet({ setId }: PokemonSetProps) {
   const set = useSet(setId);
   const { updateSet, updateSetIvs, updateSetEvs } = useSetActions();
+  console.log(set);
 
   if (!set) return;
 
@@ -58,7 +59,7 @@ export function PokemonSet({ setId }: PokemonSetProps) {
 
         <div className="row-span-2 grid grid-rows-subgrid gap-px">
           <MockDropdown>{set.ability}</MockDropdown>
-          <MockDropdown>{set.item ?? "Select Item"}</MockDropdown>
+          <ItemDropdown item={set.item} onItemChange={(item) => {updateSet(set.id, { item })}} />
         </div>
         <div className="row-span-2 col-span-2 grid grid-rows-subgrid grid-cols-subgrid gap-px">
           {Array.from({ length: 4 }, (_, idx) => (

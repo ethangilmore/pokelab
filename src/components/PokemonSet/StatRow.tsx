@@ -3,19 +3,21 @@ import { usePokemonSet } from "./Context";
 import { getBaseStats } from "@/utils/dex";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { MinusIcon } from "@heroicons/react/20/solid";
+import { getNature, getNatureEffect } from "@/utils/natures";
 
 type StatRowProps = {
   stat: StatName;
 }
 
 export function StatRow({ stat }: StatRowProps) {
-  const { set, updateSetIvs, updateSetEvs } = usePokemonSet();
+  const { set, updateSet, updateSetIvs, updateSetEvs } = usePokemonSet();
 
   const iv = set.ivs[stat] ?? 0;
   const ev = set.evs[stat] ?? 0;
 
   const baseValue = getBaseStats(set.species)[stat];
   const enhancedValue = Math.round(baseValue + (iv * 50) / 100 + (ev * 50) / 400);
+  const { plus, minus } = getNatureEffect(set.nature);
 
   return (
     <>
@@ -44,15 +46,29 @@ export function StatRow({ stat }: StatRowProps) {
         min={0}
         max={252}
         value={ev}
-        onChange={(e) => updateSetEvs({ [stat]: e.target.value })}
+        onChange={(e) => updateSetEvs({ [stat]: Number(e.target.value) })}
       />
       <div className="min-w-[2em] text-center m-auto">
         {ev}
       </div>
-      <div className="flex flex-row rounded border divide-x bg-white">
-        <MinusIcon className="min-h-full size-[1em]" />
-        <PlusIcon className="min-h-full size-[1em]" />
-      </div>
+      {stat !== "hp" ? <div className="flex flex-row rounded border divide-x bg-white overflow-hidden">
+        <button
+          className={`${stat === minus && 'bg-blue-400 text-white'}`}
+          onClick={() => {
+            updateSet({ nature: getNature({ plus, minus: stat }) })
+          }}
+        >
+          <MinusIcon className="min-h-full size-[1em]" />
+        </button>
+        <button
+          className={`${stat === plus && 'bg-red-400 text-white'}`}
+          onClick={() => {
+            updateSet({ nature: getNature({ plus: stat, minus }) })
+          }}
+        >
+          <PlusIcon className="min-h-full size-[1em]" />
+        </button>
+      </div> : <div/>}
     </>
   )
 }

@@ -44,7 +44,7 @@ export const Content = ({ children, className, ...props }: ContentProps) => {
         hidden={!isOpen}
         {...props}
       >
-        {isOpen && filteredChildren}
+        {filteredChildren}
       </div>
     , button)
   );

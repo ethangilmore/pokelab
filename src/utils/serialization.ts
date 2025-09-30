@@ -2,7 +2,7 @@ import { Team } from '@pkmn/sets';
 import type { PokemonSet } from '@/types/PokemonSet';
 import { getAbilities } from './dex';
 
-export function exportSets(sets: PokemonSet[]): string {
+export function exportSets(sets: Partial<PokemonSet>[]): string {
   return new Team(sets).toString();
 }
 

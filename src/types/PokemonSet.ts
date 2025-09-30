@@ -1,5 +1,5 @@
 import type { StatName } from '@/types/Stats'
-import type { Nature } from '@/types/Natures'
+import type { Nature } from '@/utils/natures'
 import type { TeamId } from './PokemonTeam';
 
 export type SetId = string;

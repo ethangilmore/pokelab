@@ -12,7 +12,7 @@ export function SideChips({ side, className, ...props }: SideChipsProps) {
     <div className={`p-1 empty:p-0 empty:h-1 flex flex-row gap-1 ${className}`} {...props}>
       {Object.entries(calc[side].boosts ?? {}).filter(([_, value]) => value).map(([stat, value]) => (
         <div key={stat} className="bg-white md:px-2 rounded align-middle p-1 min-w-max">
-        {stat.charAt(0).toUpperCase() + stat.slice(1)} {Intl.NumberFormat('en-us', { signDisplay: 'always' }).format(value)}
+        {stat.charAt(0).toUpperCase() + stat.slice(1)} {Intl.NumberFormat('en-us', { signDisplay: 'always' }).format(Number(value))}
         </div>
       ))}
       {getSideConditions(side).map((condition) => (
