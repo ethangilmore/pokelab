@@ -1,6 +1,8 @@
 import type { StatName } from "@/types/Stats"
 import { usePokemonSet } from "./Context";
 import { getBaseStats } from "@/utils/dex";
+import { PlusIcon } from "@heroicons/react/20/solid";
+import { MinusIcon } from "@heroicons/react/20/solid";
 
 type StatRowProps = {
   stat: StatName;
@@ -29,7 +31,7 @@ export function StatRow({ stat }: StatRowProps) {
         />
       </div>
       <input
-        className="rounded border"
+        className="rounded border max-w-[3em]"
         type="number"
         min={0}
         max={31}
@@ -44,12 +46,12 @@ export function StatRow({ stat }: StatRowProps) {
         value={ev}
         onChange={(e) => updateSetEvs({ [stat]: e.target.value })}
       />
-      <div className="min-w-[2rem] text-center">
+      <div className="min-w-[2em] text-center m-auto">
         {ev}
       </div>
-      <div className="rounded border divide-x bg-white">
-        <button className="min-w-3">-</button>
-        <button className="min-w-3">+</button>
+      <div className="flex flex-row rounded border divide-x bg-white">
+        <MinusIcon className="min-h-full size-[1em]" />
+        <PlusIcon className="min-h-full size-[1em]" />
       </div>
     </>
   )

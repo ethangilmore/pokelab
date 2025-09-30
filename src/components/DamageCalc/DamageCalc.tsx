@@ -1,7 +1,8 @@
 import type { CalcId, DamageCalc } from "@/types/DamageCalc";
 import { useCalc, useCalcActions } from "@/hooks/useStore";
 import { SetDropdown } from "./SetDropdown";
-import { MoveDropdown } from "./MoveDropdown";
+// import { MoveDropdown } from "./MoveDropdown";
+import { MoveDropdown } from "@/components/MoveDropdown";
 import { useState } from "react";
 import { StatBoosts } from "./StatBoosts";
 import { SideConditions } from "./SideConditions";
@@ -125,9 +126,9 @@ export function DamageCalc({ calcId }: { calcId: CalcId }) {
             <SideChips side="attacker" />
             <SideChips side="defender" className="flex-row-reverse" />
           </div>
-          <div className="-mx-[2px] p-1 grid grid-cols-[2fr_8rem_2fr] gap-1 rounded bg-white shadow">
+          <div className="-mx-[2px] p-1 grid grid-cols-[1fr_auto_1fr] gap-1 rounded bg-white shadow">
             <SetDropdown side="attacker" />
-            <MoveDropdown />
+            <MoveDropdown setId={calc.attacker.setId} move={calc.move} onMoveChange={(move) => contextValue.updateMove(move)} />
             <SetDropdown side="defender" />
           </div>
           <FieldChips />
