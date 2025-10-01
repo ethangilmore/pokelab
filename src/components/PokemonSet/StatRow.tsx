@@ -4,6 +4,7 @@ import { getBaseStats } from "@/utils/dex";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { MinusIcon } from "@heroicons/react/20/solid";
 import { getNature, getNatureEffect } from "@/utils/natures";
+import { Button } from "../Button";
 
 type StatRowProps = {
   stat: StatName;
@@ -22,18 +23,18 @@ export function StatRow({ stat }: StatRowProps) {
   return (
     <>
       <div>{stat}</div>
-      <div className="flex-1 bg-gray-200 rounded-full overflow-hidden relative">
+      <div className="flex-1 bg-tertiary rounded-full overflow-hidden relative">
         <div
-          className={`bg-blue-400 opacity-60 absolute inset-0 rounded-full h-full`}
+          className={`bg-blue-400 opacity-60 absolute inset-0 rounded-full`}
           style={{ width: `${(enhancedValue / 255) * 100}%` }}
         />
         <div
-          className={`bg-blue-500 border-r border-white absolute inset-0 rounded-full h-full`}
+          className={`bg-blue-500 absolute inset-0 rounded-full`}
           style={{ width: `${(baseValue / 255) * 100}%` }}
         />
       </div>
       <input
-        className="rounded border max-w-[3em]"
+        className="rounded border max-w-[3em] px-px"
         type="number"
         min={0}
         max={31}
@@ -41,7 +42,7 @@ export function StatRow({ stat }: StatRowProps) {
         onChange={(e) => updateSetIvs({ [stat]: Number(e.target.value) })}
       />
       <input
-        className="min-w-16"
+        className="min-w-16 appearance-none bg-tertiary h-1/4 rounded full my-auto"
         type="range"
         min={0}
         max={252}
@@ -51,23 +52,23 @@ export function StatRow({ stat }: StatRowProps) {
       <div className="min-w-[2em] text-center m-auto">
         {ev}
       </div>
-      {stat !== "hp" ? <div className="flex flex-row rounded border divide-x bg-white overflow-hidden">
-        <button
-          className={`${stat === minus && 'bg-blue-400 text-white'}`}
+      {stat !== "hp" ? <div className="flex flex-row rounded border divide-x overflow-hidden">
+        <Button
+          className={`${stat === minus && 'bg-sky-500 text-white'}`}
           onClick={() => {
             updateSet({ nature: getNature({ plus, minus: stat }) })
           }}
         >
           <MinusIcon className="min-h-full size-[1em]" />
-        </button>
-        <button
-          className={`${stat === plus && 'bg-red-400 text-white'}`}
+        </Button>
+        <Button
+          className={`${stat === plus && 'bg-red-400 hover:bg-red-400 text-white'}`}
           onClick={() => {
             updateSet({ nature: getNature({ plus: stat, minus }) })
           }}
         >
           <PlusIcon className="min-h-full size-[1em]" />
-        </button>
+        </Button>
       </div> : <div/>}
     </>
   )

@@ -11,7 +11,7 @@ import { ItemDropdown } from "../ItemDropdown";
 export function MockDropdown({ children, className }: { children: React.ReactNode, className?: string }) {
   return (
     <Dropdown.Provider>
-      <Dropdown.Button className={`p-1 bg-white rounded border ${className}`}>
+      <Dropdown.Button className={`p-1 rounded border ${className}`}>
         {children}
       </Dropdown.Button>
     </Dropdown.Provider>
@@ -38,7 +38,7 @@ export function PokemonSet({ setId }: PokemonSetProps) {
 
   return (
     <PokemonSetContext.Provider value={contextValue}>
-      <div className="text-xs sm:text-sm md:text-base p-1 grid grid-cols-[1fr_1fr_1fr] gap-1 border rounded shadow">
+      <div className="bg-secondary text-xs sm:text-sm md:text-base p-1 grid grid-cols-[1fr_1fr_1fr] gap-1 border rounded shadow rounded-tl-none">
         <div>
           <span className="flex justify-center">
             {set.species}

@@ -1,3 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--border);
+    outline-color: var(--border);
+  }
+}
+
+:root {
+    --primary: theme('colors.zinc.50');
+    --secondary: theme('colors.zinc.100');
+    --tertiary: theme('colors.zinc.200');
+    --button: theme('colors.zinc.50');
+    --hover: theme('colors.zinc.100');
+    --border: theme('colors.zinc.300');
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        @apply text-white;
+        --primary: theme('colors.zinc.950');
+        --secondary: theme('colors.zinc.900');
+        --tertiary: theme('colors.zinc.800');
+        --button: theme('colors.zinc.950');
+        --hover: theme('colors.zinc.900');
+        --border: theme('colors.zinc.700');
+    }
+}
+
+@theme {
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-tertiary: var(--tertiary);
+    --color-button: var(--button);
+    --color-hover: var(--hover);
+}

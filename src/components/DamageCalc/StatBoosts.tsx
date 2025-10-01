@@ -1,6 +1,7 @@
 import type { StatName } from "@/types/Stats";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { useDamageCalc } from "./Context";
+import { Button } from "../Button";
 
 type StatBoostsProps = {
   side: "attacker" | "defender";
@@ -25,22 +26,22 @@ export function StatBoosts({ side }: StatBoostsProps) {
       {(["atk", "spa", "def", "spd", "spe"] as StatName[]).map((stat) => (
         <div key={stat} className="flex items-center gap-1 justify-between">
           <span>{stat.charAt(0).toUpperCase() + stat.slice(1)}</span>
-          <div className="flex rounded border bg-white">
-            <button
+          <div className="bg-primary flex rounded border overflow-hidden">
+            <Button
               onClick={updateStat(stat, dec)}
-              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) < 0 && 'bg-gray-200'}`}
+              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) < 0 && 'bg-tertiary'}`}
             >
               <MinusIcon />
-            </button>
+            </Button>
             <span className="p-[2px] px-1 border-x min-w-[1.5rem] text-center">
               {Intl.NumberFormat('en-us', { signDisplay: 'always' }).format(calc[side].boosts?.[stat] ?? 0)}
             </span>
-            <button
+            <Button
               onClick={updateStat(stat, inc)}
-              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) > 0 && 'bg-gray-200'}`}
+              className={`min-w-4 p-px ${(calc[side]?.boosts?.[stat]??0) > 0 && 'bg-tertiary'}`}
             >
               <PlusIcon />
-            </button>
+            </Button>
           </div>
         </div>
       ))}

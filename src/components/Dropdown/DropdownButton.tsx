@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useDropdown } from "./Context";
+import { useDropdownContext } from "./DropdownContext";
+import { Button } from "../Button";
 
 type DropdownTargetProps = React.ComponentProps<'button'>;
 
-export const Button = ({ onClick, children, className, ...props }: DropdownTargetProps) => {
-  const { isOpen, setIsOpen, button, setButton, setSearchQuery } = useDropdown();
+export const DropdownButton = ({ onClick, children, className, ...props }: DropdownTargetProps) => {
+  const { isOpen, setIsOpen, button, setButton, setSearchQuery } = useDropdownContext();
   const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -29,8 +30,8 @@ export const Button = ({ onClick, children, className, ...props }: DropdownTarge
   }
 
   return (
-    <button ref={ref} onClick={handleClick} className={`relative ${className}`} {...props} >
+    <Button ref={ref} onClick={handleClick} className={`relative ${className}`} {...props} >
       {children}
-    </button>
+    </Button>
   )
 }

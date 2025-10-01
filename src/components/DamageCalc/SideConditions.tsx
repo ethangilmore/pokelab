@@ -1,6 +1,7 @@
 import type { State } from "@smogon/calc";
 import { useDamageCalc } from "./Context";
 import { sideKeys } from "./DamageCalc";
+import { Button } from "../Button";
 
 type SideConditionsProps = {
   side: "attacker" | "defender";
@@ -22,14 +23,14 @@ export function SideConditions({ side } : SideConditionsProps) {
   const conditions: (keyof State.Side)[] = ['isHelpingHand', 'isAuroraVeil', 'isReflect', 'isLightScreen', 'isFriendGuard', 'isTailwind', 'isFlowerGift', 'isBattery']
 
   return (
-    <div className="bg-white flex flex-col rounded border divide-y">
+    <div className="flex flex-col rounded border divide-y max-h-min overflow-hidden">
       {conditions.map((condition) => (
-        <button
+        <Button
         key={condition}
-        className={`px-1 ${field?.[sideKey]?.[condition] && 'bg-gray-200'}`}
+        className={`px-1 ${field?.[sideKey]?.[condition] && 'bg-tertiary'}`}
         onClick={toggleCondition(condition)}>
           {sideKeys[condition]}
-        </button>
+        </Button>
       ))}
     </div>
   )

@@ -16,11 +16,11 @@ export function SideChips({ side, className, ...props }: SideChipsProps) {
         </div>
       ))}
       {getSideConditions(side).map((condition) => (
-        <div key={condition} className="bg-white md:px-2 rounded align-middle p-1 min-w-max">
+        <div key={condition} className="bg-primary md:px-2 rounded align-middle p-1 min-w-max">
           {condition}
         </div>
       ))}
-      {isOpen && <div className="text-transparent px-2 py-1">+</div>}
+      {isOpen && <div className="text-transparent px-2 py-1">.</div>}
     </div>
   )
 }

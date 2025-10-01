@@ -1,15 +1,15 @@
-import { Provider } from './Provider';
-import { Button } from './Button';
-import { Content } from './Content';
-import { SearchBar } from './SearchBar';
-import { Section } from './Section';
-import { Item } from './Item';
+import { DropdownProvider } from './DropdownProvider';
+import { DropdownButton } from './DropdownButton';
+import { DropdownContent } from './DropdownContent';
+import { DropdownSearchBar } from './DropdownSearchBar';
+import { DropdownSection } from './DropdownSection';
+import { DropdownItem } from './DropdownItem';
 
 export const Dropdown = {
-  Provider,
-  Button,
-  Content,
-  SearchBar,
-  Section,
-  Item
+  Provider: DropdownProvider,
+  Button: DropdownButton,
+  Content: DropdownContent,
+  SearchBar: DropdownSearchBar,
+  Section: DropdownSection,
+  Item: DropdownItem
 }

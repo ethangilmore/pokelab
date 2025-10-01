@@ -121,12 +121,12 @@ export function DamageCalc({ calcId }: { calcId: CalcId }) {
   return (
     <DamageCalcContext.Provider value={contextValue}>
       <div className="m-[4px] shadow rounded bg-green-400 mt-2 text-xs sm:text-sm md:text-base">
-        <div className="rounded bg-gray-100 shadow">
+        <div className="rounded bg-secondary shadow">
           <div className="text-xs md:text-sm grid grid-cols-[auto_auto] justify-between gap-1 rounded">
             <SideChips side="attacker" />
             <SideChips side="defender" className="flex-row-reverse" />
           </div>
-          <div className="-mx-[2px] p-1 grid grid-cols-[1fr_auto_1fr] gap-1 rounded bg-white shadow">
+          <div className="-mx-[2px] p-1 grid grid-cols-[1fr_auto_1fr] gap-1 border rounded bg-primary shadow">
             <SetDropdown side="attacker" />
             <MoveDropdown setId={calc.attacker.setId} move={calc.move} onMoveChange={(move) => contextValue.updateMove(move)} />
             <SetDropdown side="defender" />
@@ -134,7 +134,7 @@ export function DamageCalc({ calcId }: { calcId: CalcId }) {
           <FieldChips />
         </div>
         { isOpen && (
-          <div className="bg-gray-100 flex justify-between">
+          <div className="bg-secondary flex justify-between">
             <StatBoosts side="attacker" />
             <div className="flex justify-between gap-1 p-1">
               <SideConditions side="attacker" />

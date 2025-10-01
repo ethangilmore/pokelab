@@ -6,6 +6,7 @@ import { DamageCalc } from "@/components/DamageCalc";
 import { Dropdown } from "@/components/Dropdown";
 import { Team } from "@/components/Team";
 import { Dex } from "@pkmn/dex";
+import { Button } from "./components/Button";
 
 function App() {
   const selectedTeam = useSelectedTeam();
@@ -15,7 +16,8 @@ function App() {
 
   return (
     <div className="p-2">
-      <button
+      <div className="size-16 bg-primary" />
+      <Button
         className="py-1 px-2 mb-2 rounded border"
         onClick={async () => {
           const teamId = addTeam("New Team");
@@ -23,7 +25,7 @@ function App() {
         }}
       >
         Add Team +
-      </button>
+      </Button>
       { selectedTeam && (
         <div className="max-w-3xl">
           <Dropdown.Provider>
@@ -56,14 +58,14 @@ function App() {
               </Dropdown.Section>
             </Dropdown.Content>
           </Dropdown.Provider>
-          <button
+          <Button
             className="py-1 px-2 mx-2 rounded border"
             onClick={async () => {
               if (selectedTeam) addCalc({attacker: {}, defender: {}}, selectedTeam.id)
             }}
           >
             Add Calc +
-          </button>
+          </Button>
 
           <Team />
 

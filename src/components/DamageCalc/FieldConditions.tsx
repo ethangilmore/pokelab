@@ -1,6 +1,7 @@
 import type { Terrain, Weather } from "@smogon/calc/dist/data/interface";
 import { useDamageCalc } from "./Context"
 import type { State } from "@smogon/calc";
+import { Button } from "../Button";
 
 export function FieldConditions() {
   const { calc, updateFieldConditions } = useDamageCalc();
@@ -28,25 +29,25 @@ export function FieldConditions() {
 
   return (
     <div className="flex flex-col gap-1"> 
-      <div className="bg-white flex flex-col rounded border divide-y">
+      <div className="bg-primary flex flex-col rounded border divide-y overflow-hidden">
         {weathers.map((weather) => (
-          <button key={weather} className={`px-1 ${calc.field?.weather === weather && 'bg-gray-200'}`} onClick={toggleWeather(weather)}>
+          <Button key={weather} className={`px-1 ${calc.field?.weather === weather && 'bg-tertiary'}`} onClick={toggleWeather(weather)}>
             {weather}
-          </button> 
+          </Button> 
         ))}
       </div>
-      <div className="bg-white flex flex-col rounded border divide-y">
+      <div className="bg-white flex flex-col rounded border divide-y overflow-hidden">
         {terrains.map((terrain, idx) => (
-          <button key={terrain} className={`px-1 ${calc.field?.terrain === terrain && 'bg-gray-200'}`} onClick={toggleTerrain(terrain)}>
+          <Button key={terrain} className={`px-1 ${calc.field?.terrain === terrain && 'bg-tertiary'}`} onClick={toggleTerrain(terrain)}>
             {terrain}{idx === terrains.length-1 && " Terrain"}
-          </button> 
+          </Button> 
         ))}
       </div>
-      <div className="bg-white flex flex-col rounded border divide-y">
-        <button className={`px-1 ${calc.field?.isTabletsOfRuin && 'bg-gray-200'}`} onClick={toggleEffect("isTabletsOfRuin")}>Tablets</button> 
-        <button className={`px-1 ${calc.field?.isBeadsOfRuin && 'bg-gray-200'}`} onClick={toggleEffect("isBeadsOfRuin")}>Beads</button> 
-        <button className={`px-1 ${calc.field?.isSwordOfRuin && 'bg-gray-200'}`} onClick={toggleEffect("isSwordOfRuin")}>Sword</button> 
-        <button className={`px-1 ${calc.field?.isVesselOfRuin && 'bg-gray-200'}`} onClick={toggleEffect("isVesselOfRuin")}>Vessel of Ruin</button> 
+      <div className="bg-white flex flex-col rounded border divide-y overflow-hidden">
+        <Button className={`px-1 ${calc.field?.isTabletsOfRuin && 'bg-tertiary'}`} onClick={toggleEffect("isTabletsOfRuin")}>Tablets</Button> 
+        <Button className={`px-1 ${calc.field?.isBeadsOfRuin && 'bg-tertiary'}`} onClick={toggleEffect("isBeadsOfRuin")}>Beads</Button> 
+        <Button className={`px-1 ${calc.field?.isSwordOfRuin && 'bg-tertiary'}`} onClick={toggleEffect("isSwordOfRuin")}>Sword</Button> 
+        <Button className={`px-1 ${calc.field?.isVesselOfRuin && 'bg-tertiary'}`} onClick={toggleEffect("isVesselOfRuin")}>Vessel of Ruin</Button> 
       </div>
     </div>
   )

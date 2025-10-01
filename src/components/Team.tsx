@@ -3,6 +3,7 @@ import { useState } from "react"
 import { PokemonSet } from "@/components/PokemonSet";
 import type { SetId } from "@/types/PokemonSet";
 import { getSpriteURL } from "@/utils/dex";
+import { Button } from "./Button";
 
 function SetTab({ setId }: { setId: SetId }) {
   const set = useSet(setId);
@@ -24,18 +25,16 @@ export function Team() {
     <div className="my-2">
       <div className="flex">
         {team.sets.map(id => (
-          <button
-            className={`${id === selectedSet && 'bg-gray-100'} size-14 rounded-t border-t border-x`}
+          <Button
+            className={`${id === selectedSet && 'bg-secondary'} size-14 rounded border rounded-b-none border-b-0`}
             key={id}
             onClick={() => setSelectedSet(id)}
           >
             <SetTab setId={id} />
-          </button>
+          </Button>
         ))}
       </div>
-      <div className="bg-gray-100">
-        <PokemonSet setId={selectedSet}/>
-      </div>
+      <PokemonSet setId={selectedSet}/>
     </div>
   )
 }

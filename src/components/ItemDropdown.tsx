@@ -18,7 +18,7 @@ export function ItemDropdown({ item, onItemChange }: ItemDropdownProps) {
 
   return (
     <Dropdown.Provider>
-      <Dropdown.Button className="rounded border bg-white">
+      <Dropdown.Button className="rounded border">
         {item ? (
           <div className="flex justify-center items-center gap-px">
             <div style={{ ...Icons.getItem(item).css, scale: .75 }} />

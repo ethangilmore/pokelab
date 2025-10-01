@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useDropdown } from "./Context";
+import { useDropdownContext } from "./DropdownContext";
 
 
-type DropdownSearchProps = React.ComponentProps<'input'>;
+type DropdownSearchBarProps = React.ComponentProps<'input'>;
 
-export const SearchBar = (props: DropdownSearchProps) => {
-  const { searchQuery, setSearchQuery, isOpen } = useDropdown();
+export const DropdownSearchBar = (props: DropdownSearchBarProps) => {
+  const { searchQuery, setSearchQuery, isOpen } = useDropdownContext();
 
   const ref = useRef<HTMLInputElement>(null);
 
@@ -15,7 +15,7 @@ export const SearchBar = (props: DropdownSearchProps) => {
 
 
   return (
-    <div className="sticky bg-white m-1">
+    <div className="sticky m-1">
       <input
         ref={ref}
         className="w-full rounded border py-1 px-2"
