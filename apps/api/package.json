@@ -1,0 +1,13 @@
+{
+    "name": "pokelab-api",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch app.ts"
+    },
+    "dependencies": {
+        "express": "^5.2.1"
+    },
+    "devDependencies": { }
+}
