@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "incremental": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefualtImports": true,
+        "resolveJsonModule": true,
+        "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo",
+        "baseUrl": ".",
+        "paths": {
+            "@api/*": ["./apps/api/src/*"],
+            "@web/*": ["./apps/web/src/*"],
+            "@data/*": ["./packages/data/*"],
+            "@db/*": ["./packages/db/*"],
+            "@types/*": ["./packages/types/*"]
+        }
+    }
+}

@@ -25,7 +25,6 @@ type PokemonSetProps = {
 export function PokemonSet({ setId }: PokemonSetProps) {
   const set = useSet(setId);
   const { updateSet, updateSetIvs, updateSetEvs } = useSetActions();
-  console.log(set);
 
   if (!set) return;
 

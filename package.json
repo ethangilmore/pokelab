@@ -3,7 +3,8 @@
     "private": true,
     "version": "0.0.0",
     "workspaces": [
-        "apps/*"
+        "apps/*",
+        "packages/*"
     ],
     "scripts": {
         "dev:web": "npm run dev --workspace pokelab-web",
@@ -15,6 +16,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.25.0",
+        "@types/express": "^5.0.6",
         "@types/node": "^24.0.3",
         "@types/react": "^19.1.2",
         "@types/react-dom": "^19.1.2",
@@ -31,5 +33,9 @@
         "typescript": "~5.8.3",
         "typescript-eslint": "^8.30.1",
         "vite": "^6.3.5"
+    },
+    "dependencies": {
+        "pg": "^8.16.3",
+        "postgres": "^3.4.7"
     }
 }
