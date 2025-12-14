@@ -1,12 +1,10 @@
 {
-    "name": "pokelab-api",
+    "name": "@pokelab/api",
     "private": true,
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "tsx watch src/app.ts",
-        "db:push": "drizzle-kit push",
-        "db:seed": "tsx src/db/seeds/seed-species.ts"
+        "dev": "tsx watch src/app.ts"
     },
     "dependencies": {
         "dotenv": "^17.2.3",

@@ -7,12 +7,14 @@
         "packages/*"
     ],
     "scripts": {
-        "dev:web": "npm run dev --workspace pokelab-web",
-        "dev:api": "npm run dev --workspace pokelab-api",
+        "dev:web": "npm run dev --workspace @pokelab/web",
+        "dev:api": "npm run dev --workspace @pokelab/api",
         "dev": "run-p dev:web dev:api",
-        "build:web": "npm run build --workspace pokelab-web",
-        "lint:web": "npm run lint --workspace pokelab-web",
-        "preview:web": "npm run preview --workspace pokelab-web"
+        "build:web": "npm run build --workspace @pokelab/web",
+        "lint:web": "npm run lint --workspace @pokelab/web",
+        "preview:web": "npm run preview --workspace @pokelab/web",
+        "db:push": "npx drizzle-kit push --config ./packages/db/drizzle.config.ts",
+        "db:seed": "npx tsx ./packages/db/seeds/seed.ts"
     },
     "devDependencies": {
         "@eslint/js": "^9.25.0",

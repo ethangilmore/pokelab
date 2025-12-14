@@ -5,6 +5,14 @@ import abilityData from "../../data/abilities.json"
 import db, { species, abilities, moves, sets, setMoves, teamMembers, teams } from "../index"
 
 async function main() {
+  await db.delete(teams)
+  await db.delete(teamMembers)
+  await db.delete(sets)
+  await db.delete(setMoves)
+  await db.delete(species)
+  await db.delete(abilities)
+  await db.delete(moves)
+
   await db
     .insert(species)
     .values(speciesData)
@@ -26,34 +34,36 @@ async function main() {
 
   const [{ id: setId }] = await db
     .insert(sets)
-    .values([{
+    .values({
       ability: abilityId,
       species: speciesId
-    }]).returning()
+    }).returning()
 
 
   await db
     .insert(setMoves)
-    .values([{
+    .values({
       set: setId,
       move: moveId,
       slot: 0,
-    }])
+    })
 
   const [{ id: teamId }] = await db
     .insert(teams)
-    .values([{
+    .values({
       name: "Ethan's team"
-    }])
+    })
     .returning()
 
   await db
     .insert(teamMembers)
-    .values([{
+    .values({
       team: teamId,
       set: setId,
       slot: 0,
-    }])
+    })
+
+  console.log("inserted the new things");
 }
 
 main()

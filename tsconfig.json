@@ -8,11 +8,9 @@
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo",
         "baseUrl": ".",
         "paths": {
-            "@api/*": ["./apps/api/src/*"],
-            "@web/*": ["./apps/web/src/*"],
-            "@data/*": ["./packages/data/*"],
-            "@db/*": ["./packages/db/*"],
-            "@types/*": ["./packages/types/*"]
+            "@pokelab/data/*": ["./packages/data/*"],
+            "@pokelab/db": ["./packages/db/index"],
+            "@pokelab/types": ["./packages/types/index"]
         }
     }
 }

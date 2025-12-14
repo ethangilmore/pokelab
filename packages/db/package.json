@@ -3,6 +3,10 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "scrips": {
+    "push": "drizzle-kit push",
+    "seed": "tsx src/db/seeds/seed-species.ts"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
